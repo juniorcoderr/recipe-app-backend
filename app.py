@@ -26,8 +26,6 @@ jwt = JWTManager(app)  # initialize JWT manager for authentication
 app.register_blueprint(auth_bp, url_prefix='/auth')  # handle auth related routes
 app.register_blueprint(recipe_bp, url_prefix='/api')  # handle recipes related routes
 
-# Run the app
+# Run the app (only for local development)
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()  # db tables are created in app context
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
